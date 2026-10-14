@@ -6,7 +6,7 @@ Sistema de inventario con usuarios, categorías, productos y movimientos (entrad
 La base de datos es PostgreSQL y está desplegada en Railway. El stock se actualiza solo con un
 trigger y las contraseñas se guardan con hash bcrypt.
 
-- **Sistema en línea:** https://inventario-web-production-89a8.up.railway.app
+- **Sistema en línea:** https://inventario-web-production-3e8e.up.railway.app
 - **Informe (PDF):** [entrega/Informe_PC2_Base_de_Datos_II.pdf](entrega/Informe_PC2_Base_de_Datos_II.pdf)
 
 Usuarios de prueba: `admin` / `Admin2026!` y `operador` / `Operador2026!`
@@ -93,20 +93,7 @@ inserta el movimiento, nunca toca el stock directamente.
 | Registro de producto con stock inicial 6 ![Producto](docs/img/08-producto-registrado.png) | Entrada de 10 → stock 16 ![Entrada](docs/img/10-entrada-registrada.png) |
 | Salida de 4 → stock 12 ![Salida](docs/img/11-salida-registrada.png) | Salida de 500 rechazada ![Sin stock](docs/img/12-salida-sin-stock.png) |
 
-## Cómo ejecutarlo en local
+## Cómo usarlo
 
-```bash
-npm install
-```
-
-Copiar `.env.example` como `.env` y poner la `DATABASE_URL` y un `JWT_SECRET`. Luego:
-
-```bash
-npm run db:init
-```
-
-```bash
-npm start
-```
-
-Y abrir http://localhost:3000
+Entrar a https://inventario-web-production-3e8e.up.railway.app con uno de los usuarios de prueba
+(`admin` / `Admin2026!` u `operador` / `Operador2026!`).
