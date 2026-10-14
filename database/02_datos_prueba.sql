@@ -1,22 +1,10 @@
--- =====================================================================
---  Script 02: Datos de prueba
---  - 2 usuarios con contraseña hasheada (bcrypt vía pgcrypto)
---  - 6 categorías
---  - 25 productos (el stock inicial entra como movimiento ENTRADA,
---    así el trigger lo calcula y queda registrado en el kardex)
--- =====================================================================
+-- Datos de prueba: usuarios, categorias, 25 productos y algunos movimientos
 
--- ---------------------------------------------------------------------
--- Usuarios: crypt(clave, gen_salt('bf', 10)) genera un hash bcrypt
--- ($2a$10$...). En la tabla solo queda el hash, nunca la clave.
--- ---------------------------------------------------------------------
+-- Las claves se guardan como hash bcrypt con crypt() de pgcrypto
 INSERT INTO usuarios (nombre, username, email, password_hash, rol) VALUES
 ('Administrador del Sistema', 'admin',    'admin@inventario.pe',    crypt('Admin2026!',    gen_salt('bf', 10)), 'ADMIN'),
 ('Operador de Almacén',       'operador', 'operador@inventario.pe', crypt('Operador2026!', gen_salt('bf', 10)), 'OPERADOR');
 
--- ---------------------------------------------------------------------
--- Categorías
--- ---------------------------------------------------------------------
 INSERT INTO categorias (nombre, descripcion) VALUES
 ('Laptops',        'Computadoras portátiles'),
 ('Periféricos',    'Teclados, mouse, audífonos y webcams'),
@@ -25,9 +13,7 @@ INSERT INTO categorias (nombre, descripcion) VALUES
 ('Redes',          'Routers, switches y cables de red'),
 ('Componentes',    'Memorias RAM, procesadores y fuentes');
 
--- ---------------------------------------------------------------------
--- 25 productos (stock inicia en 0; se carga con movimientos de ENTRADA)
--- ---------------------------------------------------------------------
+-- El stock empieza en 0, se carga despues con movimientos de entrada
 INSERT INTO productos (codigo, nombre, descripcion, id_categoria, precio, stock_minimo) VALUES
 ('LAP-001', 'Laptop Lenovo IdeaPad 5',      'Ryzen 7, 16 GB RAM, 512 GB SSD',  1, 2899.00, 3),
 ('LAP-002', 'Laptop HP Pavilion 15',        'Core i5, 8 GB RAM, 512 GB SSD',   1, 2499.00, 3),
@@ -55,10 +41,7 @@ INSERT INTO productos (codigo, nombre, descripcion, id_categoria, precio, stock_
 ('COM-004', 'Fuente EVGA 600 W 80+',        'Certificación 80 Plus',           6,  259.00, 3),
 ('COM-005', 'Pasta Térmica Arctic MX-4',    '4 gramos',                        6,   29.90, 10);
 
--- ---------------------------------------------------------------------
--- Movimientos: stock inicial (ENTRADA) para cada producto.
--- El trigger trg_movimientos_stock actualiza productos.stock.
--- ---------------------------------------------------------------------
+-- Stock inicial (el trigger actualiza productos.stock)
 INSERT INTO movimientos (id_producto, id_usuario, tipo, cantidad, motivo)
 SELECT p.id_producto, 1, 'ENTRADA', s.cantidad, 'Stock inicial'
   FROM productos p
@@ -73,7 +56,7 @@ SELECT p.id_producto, 1, 'ENTRADA', s.cantidad, 'Stock inicial'
        ) AS s(codigo, cantidad) ON s.codigo = p.codigo
  ORDER BY p.id_producto;
 
--- Algunas salidas (ventas) y reposiciones de ejemplo
+-- Algunas ventas y compras de ejemplo
 INSERT INTO movimientos (id_producto, id_usuario, tipo, cantidad, motivo)
 SELECT p.id_producto, 2, s.tipo, s.cantidad, s.motivo
   FROM productos p

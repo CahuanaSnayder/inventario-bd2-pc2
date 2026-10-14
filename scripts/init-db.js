@@ -32,9 +32,9 @@ async function main() {
   console.log(`Conectado a ${url.hostname}:${url.port}${url.pathname} (${esLocal ? 'local' : 'nube'})`);
 
   await client.query(leer('01_esquema.sql'));
-  console.log('✔ 01_esquema.sql ejecutado (tablas, FKs, trigger y vistas)');
+  console.log('OK 01_esquema.sql ejecutado (tablas, FKs, trigger y vistas)');
   await client.query(leer('02_datos_prueba.sql'));
-  console.log('✔ 02_datos_prueba.sql ejecutado (usuarios, categorías, productos, movimientos)');
+  console.log('OK 02_datos_prueba.sql ejecutado (usuarios, categorías, productos, movimientos)');
 
   const conteo = await client.query(`
     SELECT 'usuarios' AS tabla, COUNT(*)::int AS registros FROM usuarios
@@ -52,6 +52,6 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error('✖ Error:', err.message);
+  console.error('Error:', err.message);
   process.exit(1);
 });

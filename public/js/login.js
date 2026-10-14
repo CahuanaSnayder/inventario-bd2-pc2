@@ -7,7 +7,7 @@ fetch('/api/salud')
   .then((r) => r.json())
   .then((s) => {
     document.getElementById('estado-bd').textContent =
-      `Conectado a la BD "${s.bd}" (${s.entorno === 'nube' ? 'Railway ☁' : 'local'})`;
+      `Conectado a la BD "${s.bd}" (${s.entorno === 'nube' ? 'Railway' : 'local'})`;
   })
   .catch(() => {
     document.getElementById('estado-bd').textContent = 'Sin conexión con la base de datos';

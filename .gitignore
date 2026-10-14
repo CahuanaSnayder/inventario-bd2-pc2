@@ -1,3 +1,5 @@
 node_modules/
 .env
 *.log
+entrega/*.docx
+docs/img/*.png.png

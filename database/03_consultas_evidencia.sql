@@ -1,6 +1,4 @@
--- =====================================================================
---  Script 03: Consultas de verificación (para capturas de evidencia)
--- =====================================================================
+-- Consultas para revisar los datos cargados
 
 -- 1) Conteo de registros por tabla (mínimo 20 productos)
 SELECT 'usuarios' AS tabla, COUNT(*) FROM usuarios

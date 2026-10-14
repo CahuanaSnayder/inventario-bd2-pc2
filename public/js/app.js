@@ -1,4 +1,4 @@
-// ---------------------------------------------------------------- Sesión
+// Sesión
 const token = localStorage.getItem('token');
 const usuario = JSON.parse(localStorage.getItem('usuario') || 'null');
 if (!token || !usuario) location.href = 'index.html';
@@ -13,7 +13,7 @@ document.getElementById('usuario-actual').textContent = `${usuario.nombre} · ${
 document.getElementById('btn-salir').addEventListener('click', salir);
 if (usuario.rol === 'ADMIN') document.getElementById('tab-usuarios').hidden = false;
 
-// ---------------------------------------------------------------- Utilidades
+// Utilidades
 async function api(ruta, opciones = {}) {
   const res = await fetch(`/api${ruta}`, {
     ...opciones,
@@ -52,7 +52,7 @@ const badgeStock = (p) =>
 const badgeTipo = (t) =>
   `<span class="badge ${t === 'ENTRADA' ? 'in' : 'out'}">${t === 'ENTRADA' ? '▲' : '▼'} ${t}</span>`;
 
-// ---------------------------------------------------------------- Pestañas
+// Pestañas
 document.getElementById('tabs').addEventListener('click', (e) => {
   const tab = e.target.dataset.tab;
   if (!tab) return;
@@ -62,7 +62,7 @@ document.getElementById('tabs').addEventListener('click', (e) => {
   cargar[tab]?.().catch((err) => toast(err.message, 'error'));
 });
 
-// ---------------------------------------------------------------- Datos
+// Datos
 let productos = [];
 let categorias = [];
 
@@ -154,7 +154,7 @@ async function cargarResumen() {
     { titulo: 'Categoría', valor: (p) => esc(p.categoria) },
     { titulo: 'Stock', clase: 'num', valor: badgeStock },
     { titulo: 'Mínimo', clase: 'num', valor: (p) => p.stock_minimo },
-  ], productos.filter((p) => p.stock_bajo), 'Ningún producto con stock bajo 🎉');
+  ], productos.filter((p) => p.stock_bajo), 'Ningún producto con stock bajo');
 }
 
 async function cargarUsuarios() {
@@ -176,7 +176,7 @@ const cargar = {
   usuarios: cargarUsuarios,
 };
 
-// ---------------------------------------------------------------- Formularios
+// Formularios
 document.getElementById('buscar-producto').addEventListener('input', pintarProductos);
 document.querySelector('#form-movimiento [name=id_producto]').addEventListener('change', mostrarStockActual);
 document.getElementById('filtro-kardex').addEventListener('change', cargarMovimientos);
@@ -227,7 +227,7 @@ onSubmit('form-usuario', async (datos, form) => {
   await cargarUsuarios();
 });
 
-// ---------------------------------------------------------------- Inicio
+// Inicio
 const inicial = location.hash.slice(1);
 document.querySelector(`#tabs button[data-tab="${cargar[inicial] ? inicial : 'resumen'}"]`).click();
 cargarCategorias();

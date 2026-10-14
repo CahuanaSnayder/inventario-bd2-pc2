@@ -51,21 +51,23 @@ async function evidenciaBD(page) {
 
 async function diagramaER(page) {
   const mmd = fs.readFileSync(path.join(__dirname, '..', 'docs', 'modelo-er.mmd'), 'utf8');
+  await page.setViewport({ width: 1366, height: 800, deviceScaleFactor: 2 });
   await page.setContent(`<!doctype html><meta charset="utf-8">
-    <body style="margin:0;padding:24px;background:#fff">
-    <h2 style="font:600 18px Segoe UI,sans-serif;margin:0 0 12px">Modelo Entidad-Relación · Sistema de Inventario</h2>
-    <pre class="mermaid">${esc(mmd)}</pre>
+    <body style="margin:0;background:#fff">
+    <div id="er" style="display:inline-block;padding:16px;background:#fff">
+    <pre class="mermaid" style="margin:0">${esc(mmd)}</pre></div>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({ startOnLoad: true, theme: 'default', er: { fontSize: 14 } });</script></body>`,
+    <script>mermaid.initialize({ startOnLoad: true, theme: 'default', er: { fontSize: 14, useMaxWidth: false } });</script></body>`,
     { waitUntil: 'networkidle0' });
   await page.waitForSelector('pre.mermaid svg');
-  await (await page.$('body')).screenshot({ path: path.join(OUT, '01-modelo-er.png') });
+  await (await page.$('#er')).screenshot({ path: path.join(OUT, '01-modelo-er.png') });
+  await page.setViewport({ width: 1366, height: 800, deviceScaleFactor: 1 });
 }
 
 async function captura(page, nombre) {
   await pausa(250);
   await page.screenshot({ path: path.join(OUT, nombre) });
-  console.log('  ✔', nombre);
+  console.log('  -', nombre);
 }
 
 async function esperarToast(page, texto) {
@@ -81,6 +83,7 @@ async function esperarKardex(page, motivo) {
 }
 
 async function abrirPestana(page, tab, selectorListo) {
+  await page.evaluate(() => { document.getElementById('toast').hidden = true; });
   await page.click(`#tabs button[data-tab="${tab}"]`);
   await page.waitForSelector(selectorListo);
 }
@@ -174,6 +177,6 @@ async function main() {
 }
 
 main().catch(async (err) => {
-  console.error('✖', err.message);
+  console.error('Error:', err.message);
   process.exit(1);
 });

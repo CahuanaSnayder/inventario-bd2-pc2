@@ -5,7 +5,7 @@ const { requireAuth } = require('../middleware/auth');
 const router = express.Router();
 router.use(requireAuth);
 
-// ---------------------------------------------------------------- Resumen
+// Resumen
 router.get('/resumen', async (_req, res) => {
   const { rows } = await pool.query(`
     SELECT (SELECT COUNT(*) FROM productos)::int                          AS total_productos,
@@ -18,7 +18,7 @@ router.get('/resumen', async (_req, res) => {
   res.json(rows[0]);
 });
 
-// ------------------------------------------------------------- Categorías
+// Categorías
 router.get('/categorias', async (_req, res) => {
   const { rows } = await pool.query(`
     SELECT c.id_categoria, c.nombre, c.descripcion, COUNT(p.id_producto)::int AS productos
@@ -37,7 +37,7 @@ router.post('/categorias', async (req, res) => {
   res.status(201).json(rows[0]);
 });
 
-// -------------------------------------------------------------- Productos
+// Productos
 router.get('/productos', async (_req, res) => {
   const { rows } = await pool.query(`
     SELECT p.id_producto, p.codigo, p.nombre, p.descripcion, p.id_categoria,
@@ -98,7 +98,7 @@ router.put('/productos/:id', async (req, res) => {
   res.json(rows[0]);
 });
 
-// ------------------------------------------------------------ Movimientos
+// Movimientos
 router.get('/movimientos', async (req, res) => {
   const params = [];
   let filtro = '';

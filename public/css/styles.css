@@ -34,7 +34,7 @@ code { font-family: Consolas, monospace; font-size: 12.5px; background: #eef0f6;
 .small { font-size: 12px; }
 .center { text-align: center; }
 
-/* ------------------------------------------------------------ Botones */
+/* Botones */
 .btn {
   border: 0; border-radius: 8px; padding: 10px 16px; font: inherit; font-weight: 600;
   cursor: pointer; transition: background .15s;
@@ -46,7 +46,7 @@ code { font-family: Consolas, monospace; font-size: 12.5px; background: #eef0f6;
 .btn.block { width: 100%; }
 .btn:disabled { opacity: .6; cursor: wait; }
 
-/* ------------------------------------------------------------ Formularios */
+/* Formularios */
 label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 12px; flex: 1; }
 input, select {
   display: block; width: 100%; margin-top: 5px; padding: 9px 11px;
@@ -55,7 +55,7 @@ input, select {
 input:focus, select:focus { outline: 2px solid color-mix(in srgb, var(--primary) 35%, transparent); border-color: var(--primary); }
 .row { display: flex; gap: 12px; }
 
-/* ------------------------------------------------------------ Login */
+/* Login */
 .login-page { min-height: 100vh; display: grid; place-items: center; padding: 16px;
   background: radial-gradient(circle at 20% 20%, #e5e2ff, transparent 50%), radial-gradient(circle at 80% 80%, #dff3ff, transparent 45%), var(--bg); }
 .login-card { width: 100%; max-width: 380px; background: var(--surface); padding: 32px; border-radius: 16px; box-shadow: var(--shadow); }
@@ -67,7 +67,7 @@ input:focus, select:focus { outline: 2px solid color-mix(in srgb, var(--primary)
 .brand-logo.sm { width: 32px; height: 32px; font-size: 11px; border-radius: 8px; }
 .brand p { margin: 2px 0 0; }
 
-/* ------------------------------------------------------------ Layout */
+/* Layout */
 .topbar { display: flex; align-items: center; gap: 24px; padding: 10px 24px; background: var(--surface);
   border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 5; flex-wrap: wrap; }
 .tabs { display: flex; gap: 4px; flex: 1; flex-wrap: wrap; }
@@ -86,7 +86,7 @@ input:focus, select:focus { outline: 2px solid color-mix(in srgb, var(--primary)
 .card-head h3 { margin: 0; }
 .search { max-width: 280px; margin: 0; }
 
-/* ------------------------------------------------------------ Tablas */
+/* Tablas */
 .table-wrap { overflow: auto; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
 .table-wrap.tall { max-height: 560px; }
 table { width: 100%; border-collapse: collapse; }
@@ -101,14 +101,14 @@ tbody tr:hover { background: #fafbff; }
 .badge.in { background: var(--in-bg); color: var(--in); }
 .badge.out { background: var(--out-bg); color: var(--out); }
 
-/* ------------------------------------------------------------ Resumen */
+/* Resumen */
 .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-bottom: 28px; }
 .stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); }
 .stat span { display: block; color: var(--muted); font-size: 12px; font-weight: 600; text-transform: uppercase; }
 .stat strong { display: block; font-size: 24px; margin-top: 6px; }
 .stat.warn strong { color: var(--warn); }
 
-/* ------------------------------------------------------------ Movimientos */
+/* Movimientos */
 .tipo-toggle { display: flex; gap: 8px; margin-bottom: 14px; }
 .tipo-toggle label { margin: 0; }
 .tipo-toggle input { display: none; }
@@ -117,7 +117,7 @@ tbody tr:hover { background: #fafbff; }
 .tipo-toggle input[value=SALIDA]:checked + span { background: var(--out-bg); color: var(--out); border-color: var(--out); }
 .stock-actual { margin: -4px 0 12px; color: var(--muted); }
 
-/* ------------------------------------------------------------ Alertas */
+/* Alertas */
 .alert { padding: 10px 12px; border-radius: 8px; margin: 0 0 12px; }
 .alert.error { background: var(--out-bg); color: var(--out); }
 .toast { position: fixed; right: 20px; bottom: 20px; padding: 12px 18px; border-radius: 10px; color: #fff;
