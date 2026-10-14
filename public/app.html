@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sistema de Inventario</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo sm">INV</div>
+      <strong>Sistema de Inventario</strong>
+    </div>
+    <nav class="tabs" id="tabs">
+      <button data-tab="resumen" class="active">Resumen</button>
+      <button data-tab="productos">Productos</button>
+      <button data-tab="movimientos">Entradas / Salidas</button>
+      <button data-tab="categorias">Categorías</button>
+      <button data-tab="usuarios" id="tab-usuarios" hidden>Usuarios</button>
+    </nav>
+    <div class="user-box">
+      <span id="usuario-actual"></span>
+      <button class="btn ghost sm" id="btn-salir">Salir</button>
+    </div>
+  </header>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <main class="container">
+    <!-- ============================== RESUMEN ============================== -->
+    <section id="resumen" class="panel active">
+      <h2>Resumen del inventario</h2>
+      <div class="stats" id="stats"></div>
+      <h3>Productos con stock bajo</h3>
+      <div class="table-wrap"><table id="tabla-stock-bajo"></table></div>
+    </section>
+
+    <!-- ============================== PRODUCTOS ============================ -->
+    <section id="productos" class="panel">
+      <div class="grid-2">
+        <form id="form-producto" class="card">
+          <h3>Registrar producto</h3>
+          <div class="row">
+            <label>Código <input name="codigo" required maxlength="20" placeholder="LAP-005"></label>
+            <label>Categoría <select name="id_categoria" required></select></label>
+          </div>
+          <label>Nombre <input name="nombre" required maxlength="120" placeholder="Laptop Acer Aspire 5"></label>
+          <label>Descripción <input name="descripcion" maxlength="255" placeholder="Core i5, 8 GB, 512 GB SSD"></label>
+          <div class="row">
+            <label>Precio (S/) <input name="precio" type="number" min="0" step="0.01" required></label>
+            <label>Stock inicial <input name="stock_inicial" type="number" min="0" step="1" value="0"></label>
+            <label>Stock mínimo <input name="stock_minimo" type="number" min="0" step="1" value="5"></label>
+          </div>
+          <p class="muted small">El stock inicial se registra como una ENTRADA y el trigger actualiza el stock.</p>
+          <button class="btn primary" type="submit">Guardar producto</button>
+        </form>
+
+        <div class="card">
+          <div class="card-head">
+            <h3>Productos (<span id="total-productos">0</span>)</h3>
+            <input id="buscar-producto" class="search" placeholder="Buscar por código, nombre o categoría…">
+          </div>
+          <div class="table-wrap tall"><table id="tabla-productos"></table></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== MOVIMIENTOS ========================== -->
+    <section id="movimientos" class="panel">
+      <div class="grid-2">
+        <form id="form-movimiento" class="card">
+          <h3>Registrar entrada o salida</h3>
+          <div class="tipo-toggle">
+            <label><input type="radio" name="tipo" value="ENTRADA" checked><span>▲ Entrada</span></label>
+            <label><input type="radio" name="tipo" value="SALIDA"><span>▼ Salida</span></label>
+          </div>
+          <label>Producto <select name="id_producto" required></select></label>
+          <p class="stock-actual" id="stock-actual"></p>
+          <label>Cantidad <input name="cantidad" type="number" min="1" step="1" required></label>
+          <label>Motivo <input name="motivo" maxlength="255" placeholder="Compra a proveedor / Venta boleta B001-…"></label>
+          <button class="btn primary" type="submit">Registrar movimiento</button>
+        </form>
+
+        <div class="card">
+          <div class="card-head">
+            <h3>Kardex · últimos movimientos</h3>
+            <select id="filtro-kardex" class="search"><option value="">Todos los productos</option></select>
+          </div>
+          <div class="table-wrap tall"><table id="tabla-movimientos"></table></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== CATEGORÍAS =========================== -->
+    <section id="categorias" class="panel">
+      <div class="grid-2">
+        <form id="form-categoria" class="card">
+          <h3>Registrar categoría</h3>
+          <label>Nombre <input name="nombre" required maxlength="80"></label>
+          <label>Descripción <input name="descripcion" maxlength="255"></label>
+          <button class="btn primary" type="submit">Guardar categoría</button>
+        </form>
+        <div class="card">
+          <h3>Categorías</h3>
+          <div class="table-wrap"><table id="tabla-categorias"></table></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== USUARIOS ============================= -->
+    <section id="usuarios" class="panel">
+      <div class="grid-2">
+        <form id="form-usuario" class="card">
+          <h3>Registrar usuario</h3>
+          <label>Nombre completo <input name="nombre" required maxlength="100"></label>
+          <div class="row">
+            <label>Usuario <input name="username" required maxlength="50" autocomplete="off"></label>
+            <label>Rol
+              <select name="rol"><option value="OPERADOR">OPERADOR</option><option value="ADMIN">ADMIN</option></select>
+            </label>
+          </div>
+          <label>Email <input name="email" type="email" required maxlength="120"></label>
+          <label>Contraseña <input name="password" type="password" required minlength="8" autocomplete="new-password"></label>
+          <p class="muted small">La contraseña se guarda como hash bcrypt (nunca en texto plano).</p>
+          <button class="btn primary" type="submit">Crear usuario</button>
+        </form>
+        <div class="card">
+          <h3>Usuarios registrados</h3>
+          <div class="table-wrap"><table id="tabla-usuarios"></table></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

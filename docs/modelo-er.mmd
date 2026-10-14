@@ -1,0 +1,41 @@
+erDiagram
+    USUARIOS ||--o{ MOVIMIENTOS : "registra"
+    CATEGORIAS ||--o{ PRODUCTOS : "clasifica"
+    PRODUCTOS ||--o{ MOVIMIENTOS : "tiene"
+
+    USUARIOS {
+        int id_usuario PK
+        varchar nombre
+        varchar username UK
+        varchar email UK
+        varchar password_hash "hash bcrypt"
+        varchar rol "ADMIN | OPERADOR"
+        boolean activo
+        timestamptz creado_en
+    }
+    CATEGORIAS {
+        int id_categoria PK
+        varchar nombre UK
+        varchar descripcion
+    }
+    PRODUCTOS {
+        int id_producto PK
+        varchar codigo UK
+        varchar nombre
+        varchar descripcion
+        int id_categoria FK
+        numeric precio "CHECK >= 0"
+        int stock "CHECK >= 0"
+        int stock_minimo
+        timestamptz creado_en
+    }
+    MOVIMIENTOS {
+        int id_movimiento PK
+        int id_producto FK
+        int id_usuario FK
+        varchar tipo "ENTRADA | SALIDA"
+        int cantidad "CHECK > 0"
+        int stock_resultante
+        varchar motivo
+        timestamptz fecha
+    }
