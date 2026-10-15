@@ -1,6 +1,6 @@
 # Sistema de inventario - Práctica Calificada 2
 
-Base de Datos II · UTP sede Ica · Sección 28969 · Docente: Donayre Cáceres, Armando Joel
+Base de Datos II · UTP sede Ica · Sección 28969 · Docente: Donayre Cáceres, Armando Joel alumno: Snayder Cahuana Villanueva
 
 Sistema de inventario con usuarios, categorías, productos y movimientos (entradas y salidas).
 La base de datos es PostgreSQL y está desplegada en Railway. El stock se actualiza solo con un
